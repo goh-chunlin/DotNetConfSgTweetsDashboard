@@ -5,8 +5,61 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DotNetConfSgTweetsDashboard"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title=".NET Conf SG 2019 Tweets" Height="450" Width="900">
+    <Window.Resources>
+        <!-- Data Template (applied to each bound task item in the task collection) -->
+        <DataTemplate x:Key="myTaskTemplate">
+            <Border Name="border" BorderBrush="DarkSlateBlue" BorderThickness="2" CornerRadius="2" Padding="5" Margin="5">
+                <Grid>
+                    <Grid.Resources >
+                        <Style TargetType="Image" >
+                            <Setter Property="Margin" Value="4,4,4,4" />
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Source="{Binding ProfileImageUrl}" VerticalAlignment="Top" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Padding="0,0,5,0" Text="Content:"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding TweetContent}"/>
+                    <Image Grid.Row="1" Grid.Column="2" Source="{Binding ContentPhotoUrl}" HorizontalAlignment="Left" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Padding="0,0,5,0" Text="Author:"/>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Author}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Padding="0,0,5,0" Text="Created At:"/>
+                    <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding CreatedAt}"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+    <!--</SnippetDataTemplateMARKUP2>-->
+    <!--<SnippetDataTemplateMARKUP3>-->
+    <!-- UI -->
+    <Grid Height="Auto" Grid.Column="1" Grid.Row="3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label DockPanel.Dock="Top" Grid.Row="0" FontSize="18" Margin="5" Content="Tweets:"/>
+        <ListBox
+            Grid.Row="1"
+            ItemsSource="{Binding}" 
+            ItemTemplate="{StaticResource myTaskTemplate}" 
+            HorizontalContentAlignment="Stretch" 
+            IsSynchronizedWithCurrentItem="True" 
+            Margin="10,10,10,10" 
+            Height="{Binding Path=ActualHeight, ElementName=HeightHelperPanel}"/>
+        <StackPanel  Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Grid.Row="2" x:Name="btnRefresh" Content="Refresh" Margin="10,10,10,10" DockPanel.Dock="Bottom" Width="90" Click="btnRefresh_Click" Height="42" />
+        </StackPanel>
+
     </Grid>
 </Window>

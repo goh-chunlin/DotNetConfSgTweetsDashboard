@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using Tweetinvi;
+using System.Configuration;
+using Tweetinvi.Json;
+using Newtonsoft.Json;
+using DotNetConfSgTweetsDashboard.Models;
 
 namespace DotNetConfSgTweetsDashboard
 {
@@ -23,6 +15,28 @@ namespace DotNetConfSgTweetsDashboard
         public MainWindow()
         {
             InitializeComponent();
+
+            Auth.SetUserCredentials(
+                ConfigurationManager.AppSettings["Twitter_ConsumerApiKey"].ToString(),
+                ConfigurationManager.AppSettings["Twitter_ConsumerApiSecret"].ToString(),
+                ConfigurationManager.AppSettings["Twitter_AccessToken"].ToString(),
+                ConfigurationManager.AppSettings["Twitter_AccessTokenSecret"].ToString());
+
+            UpdateTweets();
+        }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateTweets();
+        }
+
+        private void UpdateTweets()
+        {
+            string tweetFeedInJson = SearchJson.SearchTweets("dotnetconfsg");
+
+            var tweetResponse = JsonConvert.DeserializeObject<TweetFeed>(tweetFeedInJson);
+
+            this.DataContext = new Tweets(tweetResponse);
         }
     }
 }
