@@ -18,5 +18,11 @@ namespace DotNetConfSgTweetsDashboard.Models
 
         [JsonProperty(PropertyName = "extended_entities")]
         public ExtendedEntity ExtendedEntities { get; set; }
+
+        [JsonProperty(PropertyName = "retweet_count")]
+        public int RetweetCount { get; set; }
+
+        [JsonProperty(PropertyName = "favorite_count")]
+        public int FavouriteCount { get; set; }
     }
 }

@@ -12,6 +12,8 @@ namespace DotNetConfSgTweetsDashboard
     /// </summary>
     public partial class MainWindow : Window
     {
+        bool isShowingAllTweets = true;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,13 +32,22 @@ namespace DotNetConfSgTweetsDashboard
             UpdateTweets();
         }
 
+        private void btnSwitchMode_Click(object sender, RoutedEventArgs e)
+        {
+            isShowingAllTweets = !isShowingAllTweets;
+
+            btnSwitchMode.Content = isShowingAllTweets ? "SHOW RANKING" : "SHOW RECENT TWEETS";
+
+            UpdateTweets();
+        }
+
         private void UpdateTweets()
         {
             string tweetFeedInJson = SearchJson.SearchTweets("dotnetconfsg");
 
-            var tweetResponse = JsonConvert.DeserializeObject<TweetFeed>(tweetFeedInJson);
+            var tweetFeed = JsonConvert.DeserializeObject<TweetFeed>(tweetFeedInJson);
 
-            this.DataContext = new Tweets(tweetResponse);
+            this.DataContext = new Tweets(tweetFeed, isShowingAllTweets);
         }
     }
 }

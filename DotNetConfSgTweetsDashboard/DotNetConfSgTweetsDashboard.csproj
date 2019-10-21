@@ -101,8 +101,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes">
+      <Version>3.0.0-ci696</Version>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="ShowMeTheXAML.MSBuild">
+      <Version>1.1.0-ci71</Version>
     </PackageReference>
     <PackageReference Include="System.Configuration.ConfigurationManager">
       <Version>4.6.0</Version>
