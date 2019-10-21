@@ -44,13 +44,15 @@ namespace DotNetConfSgTweetsDashboard.Models
 
                 foreach (var tweet in feed.Statuses)
                 {
+                    int score = 1 + tweet.RetweetCount * 5 + tweet.FavouriteCount * 5;
+
                     if (statistic.Keys.Contains(tweet.User.ScreenName))
                     {
-                        statistic[tweet.User.ScreenName] += 1 + tweet.RetweetCount * 5 + tweet.FavouriteCount * 5;
+                        statistic[tweet.User.ScreenName] += score;
                     }
                     else
                     {
-                        statistic.Add(tweet.User.ScreenName, 1);
+                        statistic.Add(tweet.User.ScreenName, score);
                     }
                 }
 
