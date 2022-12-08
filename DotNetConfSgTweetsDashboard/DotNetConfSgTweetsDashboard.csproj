@@ -13,7 +13,7 @@
       <Version>3.0.0-ci696</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.2</Version>
+      <Version>13.0.2</Version>
     </PackageReference>
     <PackageReference Include="ShowMeTheXAML.MSBuild">
       <Version>1.1.0-ci71</Version>
